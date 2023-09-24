@@ -1,0 +1,53 @@
+- hosts: my
+
+  tasks:
+    - name: update apt
+      ansible.builtin.apt:
+        name: cache
+        update_cache: yes
+      become: yes
+
+    - name: install git
+      ansible.builtin.apt:
+        name: git
+        state: present
+        update_cache: yes
+      become: yes
+      tags: [install_apps]
+
+    - name: install make
+      ansible.builtin.apt:
+        name: make
+        state: present
+        update_cache: yes
+      become: yes
+      tags: [install_apps]
+
+    - name: install curl
+      ansible.builtin.apt:
+        name: curl
+        state: present
+        update_cache: yes
+      become: yes
+      tags: [install_apps]
+
+    - name: create arya
+      ansible.builtin.user:
+        name: arya
+        comment: arya stark
+        password: 123
+      tags: [create_users]
+
+    - name: create sansa
+      ansible.builtin.user:
+        name: sansa
+        comment: sansa stark
+        password: 123
+      tags: [create_users]
+
+    - name: create tirion
+      ansible.builtin.user:
+        name: tirion
+        comment: tirion lanister
+        password: 123
+      tags: [create_users]
