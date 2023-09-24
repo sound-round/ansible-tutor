@@ -1,13 +1,16 @@
 ping:
 	ansible all -i inventory.ini -u root -m ping
 
+PLAYBOOK ?= playbook.yml
 play:
-	ansible-playbook playbook.yml -i inventory.ini -kK
+	ansible-playbook $(PLAYBOOK) -i inventory.ini -kK
 
-TAGS ?=
+TAGS ?= install_apps
 
+run:
+	ansible-playbook playbook-tags.yml -i inventory.ini -kK -t $(TAGS)
 install_apps:
-	ansible-playbook playbook-tags.yml -i inventory.ini -kK -t install_apps
+	make run TAGS=install_apps
 
 create_users:
-	ansible-playbook playbook-tags.yml -i inventory.ini -kK -t create_users
+	make run TAGS=create_users
